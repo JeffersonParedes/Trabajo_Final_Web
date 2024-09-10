@@ -1,0 +1,105 @@
+CREATE DATABASE GimnasioDB;
+USE GimnasioDB;
+
+-- Tabla Roles
+CREATE TABLE Roles (
+    id_rol INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_rol VARCHAR(50) UNIQUE NOT NULL
+);
+
+-- Insertar roles predeterminados
+INSERT INTO Roles (nombre_rol) VALUES ('cliente'), ('entrenador');
+
+-- Tabla Usuarios
+CREATE TABLE Usuarios (
+    id_usuario INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    telefono VARCHAR(20),
+    direccion VARCHAR(200),
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    contraseña VARCHAR(255) NOT NULL
+);
+
+-- Tabla Usuario_Roles (Relación entre Usuarios y Roles)
+CREATE TABLE Usuario_Roles (
+    id_usuario INT,
+    id_rol INT,
+    PRIMARY KEY (id_usuario, id_rol),
+    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE,
+    FOREIGN KEY (id_rol) REFERENCES Roles(id_rol) ON DELETE CASCADE
+);
+
+-- Tabla Entrenadores
+CREATE TABLE Entrenadores (
+    id_entrenador INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT,
+    especialidad VARCHAR(100),
+    experiencia INT,  -- Años de experiencia
+    disponibilidad TEXT,
+    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE
+);
+
+-- Tabla Clases
+CREATE TABLE Clases (
+    id_clase INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_clase VARCHAR(100) NOT NULL,
+    descripcion TEXT,
+    horario TIME NOT NULL,
+    duracion INT,  -- Duración en minutos
+    id_entrenador INT,
+    max_participantes INT,
+    FOREIGN KEY (id_entrenador) REFERENCES Entrenadores(id_entrenador) ON DELETE SET NULL
+);
+
+-- Tabla Reservas
+CREATE TABLE Reservas (
+    id_reserva INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT,
+    id_clase INT,
+    fecha DATE NOT NULL,
+    estado ENUM('reservado', 'cancelado') DEFAULT 'reservado',
+    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE,
+    FOREIGN KEY (id_clase) REFERENCES Clases(id_clase) ON DELETE CASCADE
+);
+
+-- Tabla Pagos
+CREATE TABLE Pagos (
+    id_pago INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT,
+    monto DECIMAL(10, 2) NOT NULL,
+    fecha_pago TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    tipo_pago ENUM('membresía', 'servicio adicional') NOT NULL,
+    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE
+);
+
+-- Tabla Equipos
+CREATE TABLE Equipos (
+    id_equipo INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_equipo VARCHAR(100) NOT NULL,
+    descripcion TEXT,
+    disponibilidad ENUM('disponible', 'en uso', 'en mantenimiento') DEFAULT 'disponible'
+);
+
+-- Tabla Instalaciones
+CREATE TABLE Instalaciones (
+    id_instalacion INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_instalacion VARCHAR(100) NOT NULL,
+    descripcion TEXT,
+    disponibilidad ENUM('disponible', 'ocupado', 'en mantenimiento') DEFAULT 'disponible'
+);
+
+-- Tabla Planes de Entrenamiento
+CREATE TABLE Planes_Entrenamiento (
+    id_plan INT AUTO_INCREMENT PRIMARY KEY,
+    id_entrenador INT,
+    id_usuario INT,
+    objetivo VARCHAR(200),
+    descripcion TEXT,
+    fecha_inicio DATE,
+    fecha_fin DATE,
+    FOREIGN KEY (id_entrenador) REFERENCES Entrenadores(id_entrenador) ON DELETE CASCADE,
+    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE
+);
+

@@ -1,0 +1,43 @@
+Requerimientos funcionales:
+
+Gestión de Usuarios:
+El sistema debe permitir a los usuarios registrarse proporcionando nombre, apellido, email, teléfono, dirección y contraseña.
+El sistema debe asignar roles a los usuarios, permitiendo que sean clientes o entrenadores.
+Los entrenadores deben poder registrar sus especialidades, años de experiencia y disponibilidad.
+
+Gestión de Roles:
+El sistema debe manejar roles de usuario, tales como "cliente" y "entrenador".
+Cada usuario debe poder tener uno o más roles.
+
+Gestión de Clases:
+El sistema debe permitir la creación, edición y eliminación de clases con información como nombre, descripción, horario, duración, entrenador asignado y número máximo de participantes.
+El sistema debe asignar entrenadores a las clases.
+Las clases deben poder ser reservadas por los clientes, quienes podrán cancelar dichas reservas si lo desean.
+
+Reservas de Clases:
+Los clientes deben poder reservar una clase.
+Los usuarios deben poder cancelar una reserva de clase si lo desean.
+El sistema debe manejar el estado de las reservas como "reservado" o "cancelado".
+
+Gestión de Pagos:
+El sistema debe permitir a los clientes realizar pagos, los cuales pueden ser por "membresía" o "servicio adicional".
+El sistema debe registrar la fecha, monto y tipo de pago.
+
+Gestión de Equipos:
+El sistema debe permitir gestionar los equipos del gimnasio, incluyendo su nombre, descripción y estado de disponibilidad ("disponible", "en uso", "en mantenimiento").
+
+Gestión de Instalaciones:
+El sistema debe permitir gestionar las instalaciones del gimnasio, como salas o áreas, con su nombre, descripción y estado de disponibilidad ("disponible", "ocupado", "en mantenimiento").
+
+Planes de Entrenamiento:
+El sistema debe permitir que los entrenadores asignen planes de entrenamiento personalizados a los clientes, incluyendo los objetivos, descripción, fechas de inicio y fin.
+
+Disponibilidad de Entrenadores:
+El sistema debe mostrar la disponibilidad de los entrenadores para que los clientes puedan planificar sesiones o inscribirse en clases impartidas por ellos.
+
+Notificaciones de Mantenimiento:
+El sistema debe notificar a los usuarios sobre equipos o instalaciones que estén en mantenimiento para evitar inconvenientes.
+
+Control de Acceso a Clases y Equipos:
+Los usuarios solo podrán acceder a las clases si han realizado una reserva y hay cupo disponible.
+El sistema debe verificar la disponibilidad de los equipos antes de permitir su uso.
